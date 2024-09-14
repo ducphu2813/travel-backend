@@ -1,5 +1,6 @@
 package com.travel.Flight.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,9 @@ public class Flight {
     private String arrivalAirport;
     private String departureCity;
     private String arrivalCity;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime departureDate;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime arrivalDate;
     private Integer economyPrice;
     private Integer businessPrice;
@@ -31,6 +34,7 @@ public class Flight {
     private Integer availableBusinessSeats;
     private Integer availableSeats;
     private Integer totalSeats;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
     private String status;
 }
