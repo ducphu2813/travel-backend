@@ -27,6 +27,7 @@ public class ResortRoomController {
         return resortRoomService.getResortRoomById(id);
     }
 
+    //hàm thêm nhiều room
     @PostMapping
     public List<ResortRoom> addMany(@RequestBody AddRoomDTO addRoomDTO) {
         return resortRoomService.createResortRooms(addRoomDTO);
