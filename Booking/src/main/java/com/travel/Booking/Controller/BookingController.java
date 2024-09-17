@@ -1,5 +1,6 @@
 package com.travel.Booking.Controller;
 
+import com.travel.Booking.DTO.AddBookingItemDTO;
 import com.travel.Booking.Model.Booking;
 import com.travel.Booking.Service.Interface.IBookingService;
 import org.springframework.web.bind.annotation.*;
@@ -39,5 +40,11 @@ public class BookingController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
         bookingService.deleteBooking(id);
+    }
+
+    //hàm thêm 1 or nhiều booking item cho 1 booking
+    @PostMapping("/add-booking-item")
+    public Booking addBookingItem(@RequestBody AddBookingItemDTO addBookingItemDTO) {
+        return bookingService.addBookingItem(addBookingItemDTO);
     }
 }

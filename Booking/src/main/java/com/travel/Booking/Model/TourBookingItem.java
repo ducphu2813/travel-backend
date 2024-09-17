@@ -1,5 +1,6 @@
 package com.travel.Booking.Model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,12 +10,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TourBookingItem extends BookingItem {
 
+    @JsonProperty("tourId")
     private String tourId;
+    @JsonProperty("numberOfAdults")
     private Integer numberOfAdults;
+    @JsonProperty("numberOfChildren")
     private Integer numberOfChildren;
 
     //constructor
-    public TourBookingItem(String tourId, Integer numberOfAdults, Integer numberOfChildren, String totalPrice){
+    public TourBookingItem(@JsonProperty("tourId") String tourId,
+                           @JsonProperty("numberOfAdults") Integer numberOfAdults,
+                           @JsonProperty("numberOfChildren") Integer numberOfChildren,
+                           @JsonProperty("totalPrice") String totalPrice){
         super("tour", totalPrice);
         this.tourId = tourId;
         this.numberOfAdults = numberOfAdults;

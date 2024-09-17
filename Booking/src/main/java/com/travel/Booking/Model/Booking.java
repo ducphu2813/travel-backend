@@ -1,5 +1,6 @@
 package com.travel.Booking.Model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Booking {
     private String userId;
     private List<BookingItem> bookingDetails;
     private Integer totalPrice;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
     private String status;
 }
