@@ -1,7 +1,6 @@
 package com.travel.Tour.Service;
 
 import com.travel.Tour.DTO.AddScheduleDTO;
-import com.travel.Tour.DTO.TourScheduleDTO;
 import com.travel.Tour.Exception.NotFoundException;
 import com.travel.Tour.Model.Tour;
 import com.travel.Tour.Repository.TourRepository;

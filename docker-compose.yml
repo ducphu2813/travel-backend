@@ -1,0 +1,98 @@
+version: '3.8'
+
+volumes:
+  travel_mongo_data: {}
+
+services:
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27018:27017"  # Sử dụng cổng khác vì có 1 mongo khác của đồ án .net
+    volumes:
+      - travel_mongo_data:/data/db
+    restart: always
+    networks:
+      - travel_network
+
+  traveluserservice:
+    build:
+      context: ./User
+      dockerfile: Dockerfile
+    ports:
+      - "6001:8080"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
+    networks:
+      - travel_network
+
+  travelflightservice:
+    build:
+      context: ./Flight
+      dockerfile: Dockerfile
+    ports:
+      - "6002:8080"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
+    networks:
+      - travel_network
+
+  travelbookingservice:
+    build:
+      context: ./Booking
+      dockerfile: Dockerfile
+    ports:
+      - "6003:8080"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
+    networks:
+      - travel_network
+
+  travelpaymentservice:
+    build:
+      context: ./Payment
+      dockerfile: Dockerfile
+    ports:
+      - "6004:8080"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
+    networks:
+      - travel_network
+
+  traveltourservice:
+    build:
+      context: ./Tour
+      dockerfile: Dockerfile
+    ports:
+      - "6005:8080"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
+    networks:
+      - travel_network
+
+  travelresortservice:
+    build:
+      context: ./Resort
+      dockerfile: Dockerfile
+    ports:
+      - "6006:8080"
+    depends_on:
+      - mongo
+    environment:
+      - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017
+    networks:
+      - travel_network
+
+networks:
+  travel_network:
+    driver: bridge
