@@ -2,10 +2,15 @@ package com.travel.User.Service;
 
 import com.travel.User.DTO.UserDTO;
 import com.travel.User.Exception.NotFoundException;
+import com.travel.User.Model.LoginModel;
 import com.travel.User.Model.User;
 import com.travel.User.Repository.UserRepository;
 import com.travel.User.Service.Interface.IUserSerivce;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,12 +21,21 @@ public class UserService implements IUserSerivce {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JWTService jwtService;
 
     public UserService(
             UserRepository userRepository,
-            ModelMapper modelMapper) {
+            ModelMapper modelMapper,
+            BCryptPasswordEncoder bCryptPasswordEncoder,
+            AuthenticationManager authenticationManager,
+            JWTService jwtService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.authenticationManager = authenticationManager;
+        this.jwtService = jwtService;
     }
 
     @Override
@@ -41,10 +55,30 @@ public class UserService implements IUserSerivce {
         return modelMapper.map(user, UserDTO.class);
     }
 
+    //verify user
+    @Override
+    public String verifyUser(LoginModel loginModel) {
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                            loginModel.getUsername(),
+                            loginModel.getPassword()
+                        )
+                );
+
+        if(authentication.isAuthenticated()){
+            return jwtService.generateToken(loginModel.getUsername());
+        } else {
+            return "Failed to verify";
+        }
+
+    }
+
     @Override
     @Transactional
     public User addUser(User user) {
         user.setId(null);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
