@@ -1,10 +1,12 @@
 package com.travel.Booking.Controller;
 
-import com.travel.Booking.DTO.AddBookingItemDTO;
+import com.travel.Booking.DTO.AddBookingDTO;
+import com.travel.Booking.DTO.BookingDTO;
 import com.travel.Booking.Model.Booking;
 import com.travel.Booking.Service.Interface.IBookingService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -18,22 +20,23 @@ public class BookingController {
     }
 
     @GetMapping
-    public List<Booking> getAll() {
+    public List<BookingDTO> getAll() {
         return bookingService.getAllBookings();
     }
 
     @GetMapping("/{id}")
-    public Booking getById(@PathVariable String id) {
+    public BookingDTO getById(@PathVariable Long id) {
         return bookingService.getBookingById(id);
     }
 
+    //tạo booking
     @PostMapping
-    public Booking add(@RequestBody Booking booking) {
+    public HashMap<String, Object> create(@RequestBody AddBookingDTO booking) {
         return bookingService.createBooking(booking);
     }
 
     @PutMapping("/{id}")
-    public Booking update(@PathVariable String id, @RequestBody Booking booking) {
+    public Booking update(@PathVariable Long id, @RequestBody Booking booking) {
         return bookingService.updateBooking(id, booking);
     }
 
@@ -43,8 +46,8 @@ public class BookingController {
     }
 
     //hàm thêm 1 or nhiều booking item cho 1 booking
-    @PostMapping("/add-booking-item")
-    public Booking addBookingItem(@RequestBody AddBookingItemDTO addBookingItemDTO) {
-        return bookingService.addBookingItem(addBookingItemDTO);
-    }
+//    @PostMapping("/add-booking-item")
+//    public Booking addBookingItem(@RequestBody AddBookingItemDTO addBookingItemDTO) {
+//        return bookingService.addBookingItem(addBookingItemDTO);
+//    }
 }

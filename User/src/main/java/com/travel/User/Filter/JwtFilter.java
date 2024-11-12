@@ -42,6 +42,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
         if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){
 
+            //lấy user từ database bằng username vừa extract từ token
             UserDetails userDetails = applicationContext.getBean(MyUserDetailsService.class).loadUserByUsername(username);
 
             if(jwtService.validateToken(token, userDetails)){

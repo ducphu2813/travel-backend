@@ -55,7 +55,7 @@ public class UserService implements IUserSerivce {
         return modelMapper.map(user, UserDTO.class);
     }
 
-    //verify user
+    //verify user và tạo token
     @Override
     public String verifyUser(LoginModel loginModel) {
         Authentication authentication =

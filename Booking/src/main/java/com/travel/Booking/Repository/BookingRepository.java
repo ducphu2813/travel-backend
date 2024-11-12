@@ -1,7 +1,7 @@
 package com.travel.Booking.Repository;
 
 import com.travel.Booking.Model.Booking;
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BookingRepository extends MongoRepository<Booking, String> {
+public interface BookingRepository extends JpaRepository<Booking, Long> {
 }

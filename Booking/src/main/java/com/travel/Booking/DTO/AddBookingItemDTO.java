@@ -11,6 +11,5 @@ import java.util.List;
 @NoArgsConstructor
 public class AddBookingItemDTO {
 
-    private String bookingId;
-    private List<BookingItem> items;
+
 }
