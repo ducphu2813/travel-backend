@@ -7,9 +7,6 @@ import com.travel.User.Model.User;
 import com.travel.User.Repository.UserRepository;
 import com.travel.User.Service.Interface.IUserSerivce;
 import org.modelmapper.ModelMapper;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,19 +19,16 @@ public class UserService implements IUserSerivce {
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final AuthenticationManager authenticationManager;
     private final JWTService jwtService;
 
     public UserService(
             UserRepository userRepository,
             ModelMapper modelMapper,
             BCryptPasswordEncoder bCryptPasswordEncoder,
-            AuthenticationManager authenticationManager,
             JWTService jwtService) {
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.authenticationManager = authenticationManager;
         this.jwtService = jwtService;
     }
 
@@ -58,18 +52,19 @@ public class UserService implements IUserSerivce {
     //verify user và tạo token
     @Override
     public String verifyUser(LoginModel loginModel) {
-        Authentication authentication =
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
-                            loginModel.getUsername(),
-                            loginModel.getPassword()
-                        )
-                );
+        boolean isExist = false;
+        //lấy user theo username
+        User user = userRepository.findByUsername(loginModel.getUsername());
+        if(user != null){
+            isExist = true;
+        }
 
-        if(authentication.isAuthenticated()){
-            return jwtService.generateToken(loginModel.getUsername());
+        if(isExist){
+            //lấy ra list role của user
+            List<String> roles = user.getRole();
+            return jwtService.generateToken(loginModel.getUsername(), roles);
         } else {
-            return "Failed to verify";
+            return "Failed to verify, username or password is incorrect!";
         }
 
     }

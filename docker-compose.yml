@@ -58,6 +58,24 @@ services:
     networks:
       - travel_network
 
+  #api gateway
+  apigateway:
+    build:
+      context: ./APIGateway
+      dockerfile: Dockerfile
+    volumes:
+      - maven_cache:/root/.m2         # sử dụng maven_cache build cho nhanh
+    ports:
+      - "8080:8080"
+    depends_on:
+      - service-registry
+    environment:
+      - eureka.client.serviceUrl.defaultZone=http://service-registry:8761/eureka/
+      - SERVER_PORT=8080
+    networks:
+      - travel_network
+
+
   traveluserservice:
     build:
       context: ./User
@@ -101,8 +119,8 @@ services:
     ports:
       - "6003:8080"
     depends_on:
-      - mongo
       - service-registry
+      - postgres
     environment:
       - eureka.client.serviceUrl.defaultZone=http://service-registry:8761/eureka/
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/booking
