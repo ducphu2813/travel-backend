@@ -1,5 +1,7 @@
 package com.travel.APIGateway.Filter;
 
+import com.travel.APIGateway.Exception.ForbiddenException;
+import com.travel.APIGateway.Exception.UnauthorizedException;
 import com.travel.APIGateway.Service.JWTService;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -35,7 +37,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
             }
             //header có token hay ko
             if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                throw new RuntimeException("Missing authorization header");
+                throw new UnauthorizedException("Missing authorization header");
             }
 
             // lấy token từ header "Authorization"
@@ -56,6 +58,11 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
             }
 
             if (token != null && jwtService.validateToken(token)) {
+
+                //phần này test role của user
+                if(roles.stream().noneMatch(role -> role.equals("ADMIN"))){
+                    throw new ForbiddenException("Access denied");
+                }
                 System.out.println("token hợp lệ");
                 // token hợp lệ, add username, roles vào header
                 exchange.getRequest().mutate()
@@ -68,6 +75,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 return chain.filter(exchange);
             } else {
                 //token ko hợp lệ
+                System.out.println("token ko hợp lệ");
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
