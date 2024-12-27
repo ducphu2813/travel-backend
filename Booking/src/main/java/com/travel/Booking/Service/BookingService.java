@@ -218,26 +218,26 @@ public class BookingService implements IBookingService {
     }
 
     //chuyển từ 1 list booking item sang booking item dto
-    private static BookingItemDTO getBookingItemDTO(Booking booking, int i) {
-        BookingItemDTO bookingItemDTO = new BookingItemDTO();
-        //cần kiểm tra các thuộc tính có null không
-        bookingItemDTO.setId(booking.getBookingItems().get(i).getId() == null ? null : booking.getBookingItems().get(i).getId());
-        bookingItemDTO.setServiceType(booking.getBookingItems().get(i).getServiceType() == null ? "" : booking.getBookingItems().get(i).getServiceType());
-        bookingItemDTO.setFlightID(booking.getBookingItems().get(i).getFlightID() == null ? "" : booking.getBookingItems().get(i).getFlightID());
-        bookingItemDTO.setDepartureTime(booking.getBookingItems().get(i).getDepartureTime() == null ? null : booking.getBookingItems().get(i).getDepartureTime());
-        bookingItemDTO.setDuration(booking.getBookingItems().get(i).getDuration() == null ? 0 : booking.getBookingItems().get(i).getDuration());
-        bookingItemDTO.setSeatNumber(booking.getBookingItems().get(i).getSeatNumber() == null ? "" : booking.getBookingItems().get(i).getSeatNumber());
-        bookingItemDTO.setSeatType(booking.getBookingItems().get(i).getSeatType() == null ? "" : booking.getBookingItems().get(i).getSeatType());
-        bookingItemDTO.setResortID(booking.getBookingItems().get(i).getResortID() == null ? "" : booking.getBookingItems().get(i).getResortID());
-        bookingItemDTO.setRoomID(booking.getBookingItems().get(i).getRoomID() == null ? "" : booking.getBookingItems().get(i).getRoomID());
-        bookingItemDTO.setMealCombo(booking.getBookingItems().get(i).getMealCombo() != null && booking.getBookingItems().get(i).getMealCombo());
-        bookingItemDTO.setNights(booking.getBookingItems().get(i).getNights() == null ? 0 : booking.getBookingItems().get(i).getNights());
-        bookingItemDTO.setGuests(booking.getBookingItems().get(i).getGuests() == null ? 0 : booking.getBookingItems().get(i).getGuests());
-        bookingItemDTO.setStartDate(booking.getBookingItems().get(i).getStartDate() == null ? null : booking.getBookingItems().get(i).getStartDate());
-        bookingItemDTO.setEndDate(booking.getBookingItems().get(i).getEndDate() == null ? null : booking.getBookingItems().get(i).getEndDate());
-        bookingItemDTO.setTourID(booking.getBookingItems().get(i).getTourID() == null ? "" : booking.getBookingItems().get(i).getTourID());
-        bookingItemDTO.setNumberOfAdults(booking.getBookingItems().get(i).getNumberOfAdults() == null ? 0 : booking.getBookingItems().get(i).getNumberOfAdults());
-        bookingItemDTO.setNumberOfChildren(booking.getBookingItems().get(i).getNumberOfChildren() == null ? 0 : booking.getBookingItems().get(i).getNumberOfChildren());
-        return bookingItemDTO;
-    }
+//    private static BookingItemDTO getBookingItemDTO(Booking booking, int i) {
+//        BookingItemDTO bookingItemDTO = new BookingItemDTO();
+//        //cần kiểm tra các thuộc tính có null không
+//        bookingItemDTO.setId(booking.getBookingItems().get(i).getId() == null ? null : booking.getBookingItems().get(i).getId());
+//        bookingItemDTO.setServiceType(booking.getBookingItems().get(i).getServiceType() == null ? "" : booking.getBookingItems().get(i).getServiceType());
+//        bookingItemDTO.setFlightID(booking.getBookingItems().get(i).getFlightID() == null ? "" : booking.getBookingItems().get(i).getFlightID());
+//        bookingItemDTO.setDepartureTime(booking.getBookingItems().get(i).getDepartureTime() == null ? null : booking.getBookingItems().get(i).getDepartureTime());
+//        bookingItemDTO.setDuration(booking.getBookingItems().get(i).getDuration() == null ? 0 : booking.getBookingItems().get(i).getDuration());
+//        bookingItemDTO.setSeatNumber(booking.getBookingItems().get(i).getSeatNumber() == null ? "" : booking.getBookingItems().get(i).getSeatNumber());
+//        bookingItemDTO.setSeatType(booking.getBookingItems().get(i).getSeatType() == null ? "" : booking.getBookingItems().get(i).getSeatType());
+//        bookingItemDTO.setResortID(booking.getBookingItems().get(i).getResortID() == null ? "" : booking.getBookingItems().get(i).getResortID());
+//        bookingItemDTO.setRoomID(booking.getBookingItems().get(i).getRoomID() == null ? "" : booking.getBookingItems().get(i).getRoomID());
+//        bookingItemDTO.setMealCombo(booking.getBookingItems().get(i).getMealCombo() != null && booking.getBookingItems().get(i).getMealCombo());
+//        bookingItemDTO.setNights(booking.getBookingItems().get(i).getNights() == null ? 0 : booking.getBookingItems().get(i).getNights());
+//        bookingItemDTO.setGuests(booking.getBookingItems().get(i).getGuests() == null ? 0 : booking.getBookingItems().get(i).getGuests());
+//        bookingItemDTO.setStartDate(booking.getBookingItems().get(i).getStartDate() == null ? null : booking.getBookingItems().get(i).getStartDate());
+//        bookingItemDTO.setEndDate(booking.getBookingItems().get(i).getEndDate() == null ? null : booking.getBookingItems().get(i).getEndDate());
+//        bookingItemDTO.setTourID(booking.getBookingItems().get(i).getTourID() == null ? "" : booking.getBookingItems().get(i).getTourID());
+//        bookingItemDTO.setNumberOfAdults(booking.getBookingItems().get(i).getNumberOfAdults() == null ? 0 : booking.getBookingItems().get(i).getNumberOfAdults());
+//        bookingItemDTO.setNumberOfChildren(booking.getBookingItems().get(i).getNumberOfChildren() == null ? 0 : booking.getBookingItems().get(i).getNumberOfChildren());
+//        return bookingItemDTO;
+//    }
 }
